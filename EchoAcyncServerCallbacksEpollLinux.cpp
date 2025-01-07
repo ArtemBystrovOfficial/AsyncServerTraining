@@ -38,7 +38,7 @@ class ThreadPool {
                     auto task = this->current_tasks_.front();
                     this->current_tasks_.pop();
 
-                    //std::cout << "Задача выполнена на потоке: " << std::this_thread::get_id() << std::endl;
+                    std::cout << "Задача выполнена на потоке: " << std::this_thread::get_id() << std::endl;
 
                     task();
                 }
@@ -166,7 +166,7 @@ public:
                     if (client_fd == -1) {
                         perror("Accept failed");
                         continue;
-                    }//std::cout << "New client connected: " << client_fd << "\n";
+                    }std::cout << "New client connected: " << client_fd << "\n";
                     set_nonblocking(client_fd);
 
                     epoll_event ev;
@@ -239,7 +239,7 @@ private:
             buffer[bytes_read] = '\0';
             return buffer;
         } else if (bytes_read == 0) {
-            //std::cout << "Client " << fd << " disconnected.\n";
+            std::cout << "Client " << fd << " disconnected.\n";
             close(fd);
         } else {
             perror("Read failed");
@@ -304,13 +304,13 @@ void OnWrite(AsyncServer & server, int fd, const std::string & msg) {
         if(!is_full_sended) {
             OnWrite(server,fd,""); //send other data in buffer
         } else {
-            //std::cout << "Сообщение отправлено!"<< std::endl;
+            std::cout << "Сообщение отправлено!"<< std::endl;
             OnRead(server, fd);
         }
     }, msg);
 }void OnRead(AsyncServer & server, int fd) {
     server.ReadAsync(fd, [&](int fd, std::string data) {
-        //std::cout << "data received: " << data << std::endl;
+        std::cout << "data received: " << data << std::endl;
         // Рекурсивно вызываем функцию для продолжения чтения
         //data.pop_back();
         //static std::string out = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 13\n\nHello, world!";
