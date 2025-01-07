@@ -313,8 +313,8 @@ void OnWrite(AsyncServer & server, int fd, const std::string & msg) {
         //std::cout << "data received: " << data << std::endl;
         // Рекурсивно вызываем функцию для продолжения чтения
         //data.pop_back();
-        static std::string out = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 13\n\nHello, world!";
-        OnWrite(server, fd, out); //echo server
+        //static std::string out = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 13\n\nHello, world!";
+        OnWrite(server, fd, data); //echo server
     });
 };
 
