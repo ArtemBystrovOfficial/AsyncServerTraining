@@ -382,19 +382,14 @@ private:
 
 Task Handle_connection(AsyncServer & server, int fd) {
     while (true) { //todo check closed
-        std::cout << std::this_thread::get_id() << std::endl;
         auto data = co_await server.ReadAsync(fd);
-        std::cout << std::this_thread::get_id() << std::endl;
         co_await server.WriteAsync(fd, data);
-        std::cout << std::this_thread::get_id() << std::endl;
     }
 }
 
 Task Process_connect(AsyncServer & server) {
     while (true) {
-        std::cout << std::this_thread::get_id() << std::endl;
         int fd = co_await server.AcceptAsync(); 
-        std::cout << std::this_thread::get_id() << std::endl;
         Handle_connection(server, fd); 
     }
 }
@@ -402,8 +397,6 @@ Task Process_connect(AsyncServer & server) {
 int main() {
     AsyncServer server;
     server.Listen("0.0.0.0",8080);
-    std::cout << std::this_thread::get_id() << std::endl;
     Process_connect(server);
-    std::cout << std::this_thread::get_id() << std::endl;
     server.Run(0);
 }
